@@ -107,3 +107,8 @@ button:disabled {
 .complete {
   text-decoration: line-through;
 }
+
+.filter > li {
+  display: flex;
+  justify-content: space-between;
+}

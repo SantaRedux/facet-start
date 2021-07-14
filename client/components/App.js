@@ -20,7 +20,7 @@ class App extends Component {
           </h1>
           <Link to='/todos/create'>Create A New Todo</Link>
           <Switch>
-            <Route exact path='/' component={Todos} />
+            <Route exact path='/:filter?' component={Todos} />
             <Route path='/todos/create' component={CreateTodo} />
             <Route path='/todos/:id' component={EditTodo} />
           </Switch>
