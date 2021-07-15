@@ -56,6 +56,22 @@ class Todos extends Component{
       .filter( todo => difficulty === '' || difficulty === todo.difficulty)
       .filter( todo => complete === '' || complete === todo.complete)
 
+    const difficultyMap = todos.reduce((acc, todo)=> {
+      acc.all++;
+      acc[todo.difficulty] = acc[todo.difficulty] || 0;
+      acc[todo.difficulty]++;
+      return acc;
+    }, { all: 0});
+
+    const completeMap = todos.reduce((acc, todo)=> {
+      acc.all++;
+      acc[todo.complete] = acc[todo.complete] || 0;
+      acc[todo.complete]++;
+      return acc;
+    }, { all: 0});
+
+    console.log(difficultyMap, completeMap);
+
     return (
       <div>
         <pre>
@@ -69,19 +85,19 @@ class Todos extends Component{
             <h3>Difficulty</h3>
             <div className='choices'>
               <label>
-                All
+                All ( { difficultyMap.all } )
                 <input type='checkbox' value='' checked={ difficulty === ''} onChange={ navigate } name='difficulty'/> 
               </label>
               <label>
-                Easy
+                Easy ( { difficultyMap.E } )
                 <input type='checkbox' value='E' checked={ difficulty === 'E'} onChange={ navigate } name='difficulty' /> 
               </label>
               <label>
-                Medium
+                Medium ( { difficultyMap.M } )
                 <input type='checkbox' value='M' checked={ difficulty === 'M'} onChange={ navigate } name='difficulty' /> 
               </label>
               <label>
-                Difficult
+                Difficult ( { difficultyMap.D } )
                 <input type='checkbox' value='D' checked={ difficulty === 'D'} onChange={ navigate } name='difficulty' /> 
               </label>
             </div>
@@ -90,15 +106,16 @@ class Todos extends Component{
             <h3>Complete</h3>
             <div className='choices'>
               <label>
-                All
+                All ({ completeMap.all})
+
                 <input type='checkbox' checked={ complete === '' } value='' name='complete' onChange={ navigate } />
               </label>
               <label>
-                Complete
+                Complete ({ completeMap['true']})
                 <input type='checkbox' checked={ complete === true } value={ true } name='complete' onChange={ navigate } />
               </label>
               <label>
-                Incomplete
+                Incomplete ({ completeMap['false']})
                 <input type='checkbox' checked={ complete === false } value={ false } name='complete' onChange={ navigate } />
               </label>
             </div>
