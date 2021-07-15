@@ -56,14 +56,14 @@ class Todos extends Component{
       .filter( todo => difficulty === '' || difficulty === todo.difficulty)
       .filter( todo => complete === '' || complete === todo.complete)
 
-    const difficultyMap = todos.reduce((acc, todo)=> {
+    const difficultyMap = todos.filter(todo => complete === '' || todo.complete === complete).reduce((acc, todo)=> {
       acc.all++;
       acc[todo.difficulty] = acc[todo.difficulty] || 0;
       acc[todo.difficulty]++;
       return acc;
     }, { all: 0});
 
-    const completeMap = todos.reduce((acc, todo)=> {
+    const completeMap = todos.filter(todo => difficulty === '' || todo.difficulty === difficulty).reduce((acc, todo)=> {
       acc.all++;
       acc[todo.complete] = acc[todo.complete] || 0;
       acc[todo.complete]++;
@@ -88,18 +88,28 @@ class Todos extends Component{
                 All ( { difficultyMap.all } )
                 <input type='checkbox' value='' checked={ difficulty === ''} onChange={ navigate } name='difficulty'/> 
               </label>
-              <label>
+              {
+                !!difficultyMap.E && (<label>
                 Easy ( { difficultyMap.E } )
                 <input type='checkbox' value='E' checked={ difficulty === 'E'} onChange={ navigate } name='difficulty' /> 
-              </label>
-              <label>
-                Medium ( { difficultyMap.M } )
-                <input type='checkbox' value='M' checked={ difficulty === 'M'} onChange={ navigate } name='difficulty' /> 
-              </label>
-              <label>
-                Difficult ( { difficultyMap.D } )
-                <input type='checkbox' value='D' checked={ difficulty === 'D'} onChange={ navigate } name='difficulty' /> 
-              </label>
+              </label>)
+              }
+              {
+                !!difficultyMap.M && (
+                  <label>
+                    Medium ( { difficultyMap.M } )
+                    <input type='checkbox' value='M' checked={ difficulty === 'M'} onChange={ navigate } name='difficulty' /> 
+                  </label>
+
+                )
+              }
+              {
+                !!difficultyMap.D && (
+                  <label>
+                    Difficult ( { difficultyMap.D } )
+                    <input type='checkbox' value='D' checked={ difficulty === 'D'} onChange={ navigate } name='difficulty' /> 
+                  </label>
+                )}
             </div>
           </li>
           <li>
@@ -110,14 +120,23 @@ class Todos extends Component{
 
                 <input type='checkbox' checked={ complete === '' } value='' name='complete' onChange={ navigate } />
               </label>
-              <label>
-                Complete ({ completeMap['true']})
-                <input type='checkbox' checked={ complete === true } value={ true } name='complete' onChange={ navigate } />
-              </label>
-              <label>
-                Incomplete ({ completeMap['false']})
-                <input type='checkbox' checked={ complete === false } value={ false } name='complete' onChange={ navigate } />
-              </label>
+              {
+                  !!completeMap['true'] && (
+                    <label>
+                      Complete ({ completeMap['true']})
+                      <input type='checkbox' checked={ complete === true } value={ true } name='complete' onChange={ navigate } />
+                    </label>
+
+                  )
+              }
+              {
+                  !!completeMap['false'] && (
+                    <label>
+                      Incomplete ({ completeMap['false']})
+                      <input type='checkbox' checked={ complete === false } value={ false } name='complete' onChange={ navigate } />
+                    </label>
+                  )
+              }
             </div>
           </li>
         </ul>
