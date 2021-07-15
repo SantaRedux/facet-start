@@ -108,7 +108,7 @@ button:disabled {
   text-decoration: line-through;
 }
 
-.filter > li {
+.choices {
   display: flex;
   justify-content: space-between;
 }
